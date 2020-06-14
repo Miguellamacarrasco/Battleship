@@ -23,17 +23,19 @@ int find_consecutive_free_spaces(std::vector<int> vect)
 	return highest_consecutive_spaces;
 }
 
-std::pair<int,char> generate_ship_coords(std::vector<std::vector<int>> empty_spaces, ship* boat)
+std::pair<std::pair<int,char>,bool> generate_ship_coords(std::vector<std::vector<int>> empty_spaces, int size)
 {
 	int horizontal = rand() % 2;
 	if (horizontal)
 	{
 		int random_y = rand() % 9;
-		while (find_consecutive_free_spaces(empty_spaces[random_y]) < boat->size_of() + 2)
+		int free_spaces = find_consecutive_free_spaces(empty_spaces[random_y]);
+		while (free_spaces < size + 2)
 		{
 			int random_y = rand() % 9;
 		}
-		int random_x = rand() % empty_spaces.size();
+		int random_x = rand() % free_spaces;
+		return std::pair<std::pair<int,char>, int>(std::pair<int, char>(random_x, (char)random_y+65),(bool) horizontal);
 	}
 	
 }
@@ -50,6 +52,8 @@ int main()
 			vect1[i] = i;
 		}
 	}
+	std::pair<std::pair<int,char>,bool> ship_coords = generate_ship_coords(free_spaces, 4);
+	Aircraft_carrier Our_carrier(ship_coords.first, ship_coords.second);
 	srand(time(NULL));
 	return 0;
 }

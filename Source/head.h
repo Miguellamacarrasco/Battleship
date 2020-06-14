@@ -1,7 +1,7 @@
 #include "communication.h"
 #pragma once
 
-void set_ship_coordinates(std::pair<int, char> *positions, int &x, char &y, bool &horizontal, int size)
+void set_ship_coordinates(std::pair<int, char> *positions, int x, char y, bool &horizontal, int size)
 {
 	if(horizontal)
 	{
@@ -49,6 +49,14 @@ class Aircraft_carrier : ship
 		ship::size = 4;
 		ship::positions = new std::pair<int, char>[4];
 		set_ship_coordinates(ship::positions, x, y, horizontal, 4);
+	}
+	Aircraft_carrier(std::pair<int, char> position, bool horizontal)
+	{
+		ship::boat_class = 'A';
+		ship::horizontal = horizontal;
+		ship::size = 4;
+		ship::positions = new std::pair<int, char>[4];
+		set_ship_coordinates(ship::positions, position.first, position.second, horizontal, 4);
 	}
 };
 
