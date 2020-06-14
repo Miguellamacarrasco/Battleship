@@ -1,24 +1,5 @@
-#include "communication.h"
 #pragma once
-
-void set_ship_coordinates(std::pair<int, char> *positions, int x, char y, bool &horizontal, int size)
-{
-	if(horizontal)
-	{
-		for (int i = 0; i<size;i++)
-		{
-			positions[i] = {x, y+i};
-		}
-		return;
-	}
-	for (int i=0; i<size;i++)
-	{
-	positions[i] = {x+i, y};
-	}
-	return;
-}
-
-
+#include "funcmeth.cpp"
 class ship
 {
 	protected:
