@@ -28,7 +28,7 @@ class ship
 	std::pair<int, char> * hitted_positions;
 	int size;
 	bool horizontal;
-	F significa que no se conoze el tipo de nave (lo usaremos para naves enemigas)
+	//F significa que no se conoze el tipo de nave (lo usaremos para naves enemigas)
 	char boat_class = 'F';
 	public:
 	ship();
