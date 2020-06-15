@@ -22,6 +22,7 @@ class ship
 class Aircraft_carrier : ship 
 {
 	public:
+	//Hola 
 	//Este constructor debe ser usado SOLAMENTE con nuestras naves
 	Aircraft_carrier(int x, char y, bool horizontal)
 	{
