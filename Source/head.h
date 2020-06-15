@@ -1,5 +1,21 @@
-#pragma once
-#include "funcmeth.cpp"
+#include "communication.h"
+void set_ship_coordinates(std::pair<int, char> *positions, int x, char y, bool &horizontal, int size)
+{
+	if(horizontal)
+	{
+		for (int i = 0; i<size;i++)
+		{
+			positions[i] = {x, y+i};
+		}
+		return;
+	}
+	for (int i=0; i<size;i++)
+	{
+	positions[i] = {x+i, y};
+	}
+	return;
+}
+
 class ship
 {
 	protected:
@@ -12,7 +28,6 @@ class ship
 	//F significa que no se conoze el tipo de nave (lo usaremos para naves enemigas)
 	char boat_class = 'F';
 	public:
-	ship();
 	int size_of()
 	{
 		return size;
@@ -22,23 +37,22 @@ class ship
 class Aircraft_carrier : ship 
 {
 	public:
-	//Hola 
 	//Este constructor debe ser usado SOLAMENTE con nuestras naves
 	Aircraft_carrier(int x, char y, bool horizontal)
 	{
-		ship::boat_class = 'A';
-		ship::horizontal = horizontal;
-		ship::size = 4;
-		ship::positions = new std::pair<int, char>[4];
-		set_ship_coordinates(ship::positions, x, y, horizontal, 4);
+		boat_class = 'A';
+		horizontal = horizontal;
+		size = 4;
+		positions = new std::pair<int, char>[4];
+		set_ship_coordinates(positions, x, y, horizontal, 4);
 	}
-	Aircraft_carrier(std::pair<int, char> position, bool horizontal)
+	Aircraft_carrier(std::pair<int, char> position, bool _horizontal)
 	{
-		ship::boat_class = 'A';
-		ship::horizontal = horizontal;
-		ship::size = 4;
-		ship::positions = new std::pair<int, char>[4];
-		set_ship_coordinates(ship::positions, position.first, position.second, horizontal, 4);
+		boat_class = 'A';
+		horizontal = _horizontal;
+		size = 4;
+		positions = new std::pair<int, char>[4];
+		set_ship_coordinates(positions, position.first, position.second, horizontal, 4);
 	}
 };
 
@@ -46,13 +60,13 @@ class Battlecruiser : ship
 {
 	public: 
 	//Este constructor debe ser usado SOLAMENTE con nuestras naves
-	Battlecruiser(int x, char y, bool horizontal)
+	Battlecruiser(int x, char y, bool _horizontal)
 	{
-		ship::boat_class = 'B';
-		ship::horizontal = horizontal;
-		ship::size = 3;
-		ship::positions = new std::pair<int,char>[3];
-		set_ship_coordinates(ship::positions, x, y, horizontal, 3);
+		boat_class = 'B';
+		horizontal = _horizontal;
+		size = 3;
+		positions = new std::pair<int,char>[3];
+		set_ship_coordinates(positions, x, y, horizontal, 3);
 	}
 };
 
@@ -60,13 +74,13 @@ class Submarine : ship
 {
 	public: 
 	//Este constructor debe ser usado SOLAMENTE con nuestras naves
-	Submarine(int x, char y, bool horizontal)
+	Submarine(int x, char y, bool _horizontal)
 	{
-		ship::boat_class = 'S';
-		ship::horizontal = horizontal;
-		ship::size = 2;
-		ship::positions = new std::pair<int,char>[2];
-		set_ship_coordinates(ship::positions, x, y, horizontal, 2);
+		boat_class = 'S';
+		horizontal = _horizontal;
+		size = 2;
+		positions = new std::pair<int,char>[2];
+		set_ship_coordinates(positions, x, y, horizontal, 2);
 	}
 };
 
@@ -74,13 +88,13 @@ class Torpedo_boat : ship
 {
 	public: 
 	//Este constructor debe ser usado SOLAMENTE con nuestras naves
-	Torpedo_boat(int x, char y, bool horizontal)
+	Torpedo_boat(int x, char y, bool _horizontal)
 	{
-		ship::boat_class = 'T';
-		ship::horizontal = horizontal;
-		ship::size = 1;
-		ship::positions = new std::pair<int,char>[1];
-		set_ship_coordinates(ship::positions, x, y, horizontal, 1);
+		boat_class = 'T';
+		horizontal = _horizontal;
+		size = 1;
+		positions = new std::pair<int,char>[1];
+		set_ship_coordinates(positions, x, y, horizontal, 1);
 	}
 };
 
