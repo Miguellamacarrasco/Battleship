@@ -1,20 +1,11 @@
+#ifndef HEAD_H
+#define HEAD_H
+
 #include "communication.h"
-void set_ship_coordinates(std::pair<int, char> *positions, int x, char y, bool &horizontal, int size)
-{
-	if(horizontal)
-	{
-		for (int i = 0; i<size;i++)
-		{
-			positions[i] = {x, y+i};
-		}
-		return;
-	}
-	for (int i=0; i<size;i++)
-	{
-	positions[i] = {x+i, y};
-	}
-	return;
-}
+int find_consecutive_free_spaces(std::vector<int> vect);
+std::pair<std::pair<int,char>,bool> generate_ship_coords(std::vector<std::vector<int>> empty_spaces, int size);
+void set_ship_coordinates(std::pair<int, char> *positions, int x, char y, bool &horizontal, int size);
+
 
 class ship
 {
@@ -100,3 +91,4 @@ class Torpedo_boat : ship
 
 
 
+#endif
