@@ -5,13 +5,43 @@
 #include <experimental/filesystem>
 #include <fstream>
 #include <algorithm>
-
+#include <functional>
+#include <utility>
 
 using position = std::vector<std::vector<int>>; //y<x> 
 using real_position = std::pair<int,char>; // x = char, y = int
 using orientation = bool; //1 = Horizontal, 0 = Vertical
 using position_orientation = std::pair<position, orientation>;
 using real_position_orientation = std::pair<real_position, orientation>;
+
+
+class mapa
+{
+	position positions = {};
+	std::function<std::pair<int,int> (mapa,int,int)> next_move;
+	public:
+
+	void hit(int x, int y)  
+	{
+		positions[y][x] = 2;
+	}
+	//or
+	void miss(int x, int y)
+	{
+		positions[y][x] = 1;
+	}
+	void label_suspected_ship(int x, int y) 
+	{
+		positions[y][x] = 3;
+	} 
+	int read(int x, int y)
+	{
+		return positions[y][x];
+	}
+	int size(){
+		return 10;
+	}
+};
 
 class observer
 {
