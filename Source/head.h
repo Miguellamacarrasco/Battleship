@@ -7,6 +7,29 @@ std::pair<std::pair<int,char>,bool> generate_ship_coords(std::vector<std::vector
 void set_ship_coordinates(std::pair<int, char> *positions, int x, char y, bool &horizontal, int size);
 void remove_position(real_position_orientation ship_coords, std::vector<std::vector<int>> & free_spaces);
 
+class mapa
+{
+	position positions = {};
+	public:
+	void hit(int x, int y)
+	{
+		positions[y][x] = 2;
+	}
+	//or
+	void miss(int x, int y)
+	{
+		positions[y][x] = 1;
+	}
+	void label_suspected_ship(int x, int y) 
+	{
+		positions[y][x] = 3;
+	} 
+	int read(int x, int y)
+	{
+		return positions[y][x];
+	}
+};
+
 class ship
 {
 	protected:

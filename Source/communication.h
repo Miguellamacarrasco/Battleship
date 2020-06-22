@@ -33,13 +33,14 @@ class observer
     void execute()
     {
         std::error_code e;
+        std::vector<std::string> vector_of_strings;
         while(true) //QuE EfIcIeNtE!!!!1
         {
             auto amount_of_files = std::distance(std::experimental::filesystem::directory_iterator(the_path), std::experimental::filesystem::directory_iterator{});
             if (amount_of_files > 0)
             {
                 std::string line;
-                std::vector<std::string> vector_of_strings;
+                vector_of_strings.clear();
                 for (auto iterator : std::experimental::filesystem::directory_iterator{the_path})
                 {
                     std::ifstream my_file (iterator.path());
@@ -65,6 +66,8 @@ class observer
 class writer
 {
     std::experimental::filesystem::path the_path;
+    std::experimental::filesystem::path the_file;
+    int command_counter = 0;
     public: 
     writer(std::string word)
     {
@@ -73,8 +76,14 @@ class writer
     }
     void write(std::string command)
     {
-        std::ofstream my_file(the_path);
-        
+        the_file.replace_filename(the_path.string() + ((char (command_counter+48)) + ".Comando.out"));
+        std::ofstream my_file(the_file);
+        if (my_file.is_open())
+        {
+            my_file << command;
+        }
+        my_file.close();
+        command_counter++;
     }
 };
 
