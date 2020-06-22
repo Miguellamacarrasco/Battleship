@@ -5,7 +5,7 @@
 int find_consecutive_free_spaces(std::vector<int> vect);
 std::pair<std::pair<int,char>,bool> generate_ship_coords(std::vector<std::vector<int>> empty_spaces, int size);
 void set_ship_coordinates(std::pair<int, char> *positions, int x, char y, bool &horizontal, int size);
-
+void remove_position(real_position_orientation ship_coords, std::vector<std::vector<int>> & free_spaces);
 
 class ship
 {

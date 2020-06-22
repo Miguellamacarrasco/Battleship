@@ -1,7 +1,9 @@
 #include "head.h"
 
+
 int main()
 {
+	srand(time(NULL));
 	std::vector<std::vector<int>> free_spaces;
 	for(auto vect1 : free_spaces)
 	{
@@ -10,8 +12,12 @@ int main()
 			vect1[i] = i;
 		}
 	}
-	std::pair<std::pair<int,char>,bool> ship_coords = generate_ship_coords(free_spaces, 4);
+
+	real_position_orientation ship_coords = generate_ship_coords(free_spaces, 4);
 	Aircraft_carrier Our_carrier(ship_coords.first, ship_coords.second);
-	srand(time(NULL));
+	remove_position(ship_coords, free_spaces);
+
+	ship_coords = generate_ship_coords(free_spaces, 3);
+	
 	return 0;
 }

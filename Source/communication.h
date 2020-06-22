@@ -4,10 +4,18 @@
 #include <vector>
 #include <experimental/filesystem>
 #include <fstream>
+#include <algorithm>
+
+
+using position = std::vector<std::vector<int>>; //y<x> 
+using real_position = std::pair<int,char>; // x = char, y = int
+using orientation = bool; //1 = Horizontal, 0 = Vertical
+using position_orientation = std::pair<position, orientation>;
+using real_position_orientation = std::pair<real_position, orientation>;
 
 class observer
 {
-    std::filesystem::path the_path;
+    std::experimental::filesystem::path the_path;
     public:
     observer()
     {
@@ -15,10 +23,10 @@ class observer
     }
     observer(std::string word)
     {
-        std::filesystem::path temp(word);
-        if (!std::filesystem::exists(temp))
+        std::experimental::filesystem::path temp(word);
+        if (!std::experimental::filesystem::exists(temp))
         {
-            std::filesystem::create_directory(temp);
+            std::experimental::filesystem::create_directory(temp);
         }
         the_path = temp;
     }
@@ -27,12 +35,12 @@ class observer
         std::error_code e;
         while(true) //QuE EfIcIeNtE!!!!1
         {
-            auto amount_of_files = std::distance(std::filesystem::directory_iterator(the_path), std::filesystem::directory_iterator{});
+            auto amount_of_files = std::distance(std::experimental::filesystem::directory_iterator(the_path), std::experimental::filesystem::directory_iterator{});
             if (amount_of_files > 0)
             {
                 std::string line;
                 std::vector<std::string> vector_of_strings;
-                for (auto iterator : std::filesystem::directory_iterator{the_path})
+                for (auto iterator : std::experimental::filesystem::directory_iterator{the_path})
                 {
                     std::ifstream my_file (iterator.path());
                     if (my_file.is_open())
@@ -43,7 +51,7 @@ class observer
                         }
                     }
                     my_file.close();
-                    std::filesystem::remove(iterator.path(),e);
+                    std::experimental::filesystem::remove(iterator.path(),e);
                     if (e)
                     {
                         std::cerr << e.message() << '\n';
@@ -52,5 +60,21 @@ class observer
             }
         }
     } 
+};
+
+class writer
+{
+    std::experimental::filesystem::path the_path;
+    public: 
+    writer(std::string word)
+    {
+        std::experimental::filesystem::path temp(word);
+        the_path = word;
+    }
+    void write(std::string command)
+    {
+        std::ofstream my_file(the_path);
+        
+    }
 };
 
