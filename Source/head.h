@@ -9,7 +9,7 @@ void remove_position(real_position_orientation ship_coords, std::vector<std::vec
 
 class ship
 {
-	protected:
+	public:
 	/*Como no siempre vamos a saber el tamaño de la nave o su horientacion 
 	tiene mas sentido que manejemos su pocision como una lista de coordenadas*/
 	std::pair<int, char> * positions;
@@ -25,7 +25,7 @@ class ship
 	}
 };
 
-class Aircraft_carrier : ship 
+class Aircraft_carrier : public ship 
 {
 	public:
 	//Este constructor debe ser usado SOLAMENTE con nuestras naves
@@ -47,7 +47,7 @@ class Aircraft_carrier : ship
 	}
 };
 
-class Battlecruiser : ship
+class Battlecruiser : public ship
 {
 	public: 
 	//Este constructor debe ser usado SOLAMENTE con nuestras naves
@@ -61,7 +61,7 @@ class Battlecruiser : ship
 	}
 };
 
-class Submarine : ship
+class Submarine : public ship
 {
 	public: 
 	//Este constructor debe ser usado SOLAMENTE con nuestras naves
@@ -75,7 +75,7 @@ class Submarine : ship
 	}
 };
 
-class Torpedo_boat : ship
+class Torpedo_boat : public ship
 {
 	public: 
 	//Este constructor debe ser usado SOLAMENTE con nuestras naves
@@ -88,6 +88,64 @@ class Torpedo_boat : ship
 		set_ship_coordinates(positions, x, y, horizontal, 1);
 	}
 };
+
+
+class player_self
+{
+	public:
+	std::map<std::string, ship> fleet; 
+	std::string token;
+	void set_ship(std::string name,std::string type, int x, int y, bool Horizontal)
+	{
+		
+			if (type == "Aircraft_carrier")
+			{
+				Aircraft_carrier Aircraft_carrier_OBJ(x, y, Horizontal);
+				fleet.insert(std::pair<std::string, ship>(name,Aircraft_carrier_OBJ));
+			}
+			if (type == "Battlecruiser")
+			{
+				Battlecruiser Battlecruiser_OBJ(x, y, Horizontal);
+				fleet.insert(std::pair<std::string, ship>(name,Battlecruiser_OBJ));
+			}
+			if (type == "Submarine")
+			{
+				Submarine Submarine_OBJ(x, y, Horizontal);
+				fleet.insert(std::pair<std::string, ship>(name, Submarine_OBJ));
+			}
+			if (type == "Torpedo Boat")
+			{
+				Torpedo_boat Torpedo_boat_OBJ(x, y, Horizontal);
+				fleet.insert(std::pair<std::string, ship>(name,Torpedo_boat_OBJ));
+			}	
+		
+	}
+	ship get_ship(std::string name)
+	{
+		return fleet[name];
+	}
+
+};
+
+std::pair<std::pair<int, int>, bool> generate_ship_coords(player_self player, int size)
+{
+	
+	bool flag = true;
+	int random_x;
+	int random_y;
+	int horizontal;
+    random_x = rand() % 11;
+    random_y = rand() % 11;
+	std::map<std::string, ship>::iterator it;
+	for (it = player.fleet.begin(); it != player.fleet.end(); it++)
+	{
+		for (int i = 0; i < it->second.size; i++)
+		{
+			if (it->second.positions[i].first == random_x || it->second.positions[i].first == (char) (random_y + 97)) return generate_ship_coords(player, size);
+		}
+	}
+	return std::pair<std::pair<int, int>, bool> (std::pair<int, int>(random_x, random_y), (bool) horizontal);
+}
 
 
 

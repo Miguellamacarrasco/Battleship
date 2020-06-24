@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
 #include <vector>
@@ -7,6 +8,8 @@
 #include <algorithm>
 #include <functional>
 #include <utility>
+#include <map>
+#include <random>
 
 using position = std::vector<std::vector<int>>; //y<x> 
 using real_position = std::pair<int,char>; // x = char, y = int
