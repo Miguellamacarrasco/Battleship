@@ -1,7 +1,6 @@
 #include "communication.h"
 
 
-
 void set_ship_coordinates(std::pair<int, char> *positions, int x, char y, bool &horizontal, int size)
 {
 	if(horizontal)
